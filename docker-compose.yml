@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  server:
+    image: voyagerwy130/grpc-go:1.0
+    ports:
+      - "50051:50051"
+    container_name: todoapp.server
+    command: bash -c "go run server/server.go"
+    depends_on:
+      - mongo
+    volumes:
+      - ./server:/go/src/github.com/VoyagerYoshida/todo-app/server
+
+  # client:
+  #   image: voyagerwy130/grpc-go:1.0
+  #   container_name: todoapp.client
+  #   depends_on:
+  #     - server
+  #   # volumes:
+  #   #   - ./api:/go/src/github.com/user/todo-app/api
+
+  mongo:
+    image: mongo
+    container_name: todoapp.db
